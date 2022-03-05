@@ -3,7 +3,6 @@ services:
   mysql_container:
     platform: linux/x86_64
     image: mysql:5.7
-#    restart: always
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
@@ -19,7 +18,6 @@ services:
   second_mysql_container:
     platform: linux/x86_64
     image: mysql:5.7
-    #    restart: always
     environment:
       MYSQL_DATABASE: 'sec_db'
       MYSQL_USER: 'user'
@@ -31,14 +29,7 @@ services:
       - '3307'
     volumes:
       - my-db_sec:/var/lib/sec_mysql
-
-#  ch_server:
-#    image: yandex/clickhouse-server
-#    ports:
-#      - "8123:8123"
-#    volumes:
-#      - clickhouse_db:/var/lib/clickhouse
-
+      -
   csgo_fastapi:
     build:
       context: .
@@ -52,4 +43,3 @@ services:
 volumes:
   my-db:
   my-db_sec:
-#  clickhouse_db:
