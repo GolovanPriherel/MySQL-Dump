@@ -1,0 +1,6 @@
+/src/prediction_utils/
+/src/api/
+/venv/
+
+.idea
+__pychache__

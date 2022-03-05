@@ -1,0 +1,55 @@
+version: '3.3'
+services:
+  mysql_container:
+    platform: linux/x86_64
+    image: mysql:5.7
+#    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+  second_mysql_container:
+    platform: linux/x86_64
+    image: mysql:5.7
+    #    restart: always
+    environment:
+      MYSQL_DATABASE: 'sec_db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    volumes:
+      - my-db_sec:/var/lib/sec_mysql
+
+#  ch_server:
+#    image: yandex/clickhouse-server
+#    ports:
+#      - "8123:8123"
+#    volumes:
+#      - clickhouse_db:/var/lib/clickhouse
+
+  csgo_fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./data:/data
+      - ./src/log_utils/Logs:/Logs
+
+volumes:
+  my-db:
+  my-db_sec:
+#  clickhouse_db:
